@@ -17,9 +17,9 @@ const ChartComponent = () => {
     },
     mappedPackageData: [],
     mappedYearData: [],
+    discountedPrices: [],
   });
 
-  // JSON Package Data
   const JsonPackageData = {
     starter: 450,
     basic: 1225,
@@ -29,13 +29,57 @@ const ChartComponent = () => {
     custom: 15625,
   };
 
-  // JSON Year Data
   const JsonYearData = {
-    "1st year": 25,
-    "2nd year": 35,
-    "3rd year": 45,
-    "4th year": 55,
-    "5th year": 65
+    "1stYear": 25,
+    "2ndYear": 35,
+    "3rdYear": 45,
+    "4thYear": 55,
+    "5thYear": 65,
+  };
+
+  const JsonDiscountData = {
+    starter: {
+      "1stYear": 0,
+      "2ndYear": 5,
+      "3rdYear": 10,
+      "4thYear": 20,
+      "5thYear": 25,
+    },
+    basic: {
+      "1stYear": 5,
+      "2ndYear": 10,
+      "3rdYear": 15,
+      "4thYear": 20,
+      "5thYear": 25,
+    },
+    pro: {
+      "1stYear": 10,
+      "2ndYear": 15,
+      "3rdYear": 20,
+      "4thYear": 25,
+      "5thYear": 30,
+    },
+    advanced: {
+      "1stYear": 15,
+      "2ndYear": 20,
+      "3rdYear": 25,
+      "4thYear": 30,
+      "5thYear": 35,
+    },
+    enterprise: {
+      "1stYear": 20,
+      "2ndYear": 25,
+      "3rdYear": 30,
+      "4thYear": 35,
+      "5thYear": 40,
+    },
+    custom: {
+      "1stYear": 25,
+      "2ndYear": 30,
+      "3rdYear": 35,
+      "4thYear": 40,
+      "5thYear": 45,
+    },
   };
 
   const handleCustomChange = (e, setFieldValue) => {
@@ -54,6 +98,14 @@ const ChartComponent = () => {
         return { plan, percentage };
       });
 
+      const discountedPrices = mappedPackageData.map(({ plan, price }) => {
+        const yearlyDiscounts = Object.entries(JsonDiscountData[plan]).map(([year, discount]) => {
+          const discountedPrice = price * (1 - discount / 100);
+          return { year, discountedPrice: discountedPrice.toFixed(2) };
+        });
+        return { plan, yearlyDiscounts };
+      });
+
       setResults({
         TotalAgentsNeeded: totalAgentsNeeded,
         ApproximateAgentNeeded: approximateAgentNeeded,
@@ -67,6 +119,7 @@ const ChartComponent = () => {
         },
         mappedPackageData,
         mappedYearData,
+        discountedPrices,
       });
     } else {
       setResults({
@@ -82,6 +135,7 @@ const ChartComponent = () => {
         },
         mappedPackageData: [],
         mappedYearData: [],
+        discountedPrices: [],
       });
     }
   };
@@ -121,12 +175,6 @@ const ChartComponent = () => {
               {results.packages.enterprise && (
                 <div>Enterprise: {results.packages.enterprise ? 'Yes' : 'No'}</div>
               )}
-             {/* {results.packages.starter && <div>Starter: {results.packages.starter ? 'Yes' : 'No'}</div>}
-             {results.packages.basic && <div>Basic: {results.packages.basic ? 'Yes' : 'No'}</div>}
-             {results.packages.pro && <div>Pro: {results.packages.pro ? 'Yes' : 'No'}</div>}
-             {results.packages.advanced && <div>Advanced: {results.packages.advanced ? 'Yes' : 'No'}</div>}
-             {results.packages.enterprise && <div>Enterprise: {results.packages.enterprise ? 'Yes' : 'No'}</div>}
-             {results.packages.custom && <div>Custom: {results.packages.custom ? 'Yes' : 'No'}</div>} */}
             </div>
             <div style={{ color: 'orange' }}>
               4. Per Month Cost:
@@ -138,7 +186,6 @@ const ChartComponent = () => {
                   </div>
                 ))}
             </div>
-
             <div style={{ color: 'green' }}>
               5. Self Serving Sessions:
               {results.mappedYearData.map(({ plan, percentage }) => {
@@ -149,12 +196,9 @@ const ChartComponent = () => {
                   </div>
                 );
               })}
-
             </div>
-
             <div style={{ color: 'black' }}>
               6. Number Of Agent Savings:
-
               {results.mappedYearData.map(({ plan, percentage }) => {
                 const totalSessions = ((values.number * parseFloat(percentage) / 100) / 960).toFixed(2);
                 return (
@@ -163,12 +207,9 @@ const ChartComponent = () => {
                   </div>
                 );
               })}
-
             </div>
-
             <div style={{ color: 'blue' }}>
               7. Number Of ManHour Saved:
-
               {results.mappedYearData.map(({ plan, percentage }) => {
                 const totalSessions = ((values.number * parseFloat(percentage) / 100) / 960 * 20 * 7 * 12).toFixed(2);
                 return (
@@ -178,14 +219,13 @@ const ChartComponent = () => {
                 );
               })}
             </div>
-
             <div style={{ color: 'orange' }}>
-              8. Cost Of EserveCloud:
+              8. Yearly Cost Of EserveCloud:
               {results.mappedPackageData
                 .filter(({ plan }) => plan === 'enterprise' && results.packages[plan])
                 .map(({ plan, price }) => (
                   <div key={plan}>
-                    {plan.charAt(0).toUpperCase() + plan.slice(1)}: ${(price / 12).toFixed(2)}
+                    {plan.charAt(0).toUpperCase() + plan.slice(1)}: ${(price * 12).toFixed(2)}
                   </div>
                 ))}
             </div>
@@ -196,7 +236,7 @@ const ChartComponent = () => {
                   <tr>
                     <th>Year</th>
                     <th>Num of <br />ManHours</th>
-                    <th>Cost of <br />EserveCloud</th>
+                    <th> Yearly Cost of <br />EserveCloud</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -205,7 +245,7 @@ const ChartComponent = () => {
                       (values.number * parseFloat(percentage) / 100) / 960 * 20 * 7 * 12
                     ).toFixed(2);
                     const applicablePackage = results.mappedPackageData.find(({ plan }) => results.packages[plan]);
-                    const monthlyCost = applicablePackage ? (applicablePackage.price / 12).toFixed(2) : 'N/A';
+                    const monthlyCost = applicablePackage ? (applicablePackage.price * 12).toFixed(2) : 'N/A';
                     return (
                       <tr key={index}>
                         <td>{plan}</td>
@@ -218,6 +258,48 @@ const ChartComponent = () => {
               </table>
             </div>
 
+            <div style={{ color: 'green' }}>
+              9. Discounts based on the package:
+              {results.discountedPrices
+                .filter(({ plan }) => plan === 'enterprise' && results.packages[plan])
+                .map(({ plan, yearlyDiscounts }) => (
+                  yearlyDiscounts.map(({ year, discountedPrice }) => (
+                    <div key={`${plan}-${year}`}>
+                      {plan.charAt(0).toUpperCase() + plan.slice(1)} - {year}: ${(discountedPrice * 12).toFixed(2)}
+                    </div>
+                  ))
+                ))}
+            </div>
+            <div>
+              <table border="1">
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th>Num of <br />ManHours</th>
+                    <th>Discounts based<br />on the package</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {results.mappedYearData.map(({ plan, percentage }, index) => {
+                    const totalSessions = (
+                      (values.number * parseFloat(percentage) / 100) / 960 * 20 * 7 * 12
+                    ).toFixed(2);
+                    const applicablePackage = results.discountedPrices.find(({ plan: p }) => results.packages[p]);
+                    const yearlyDiscount = applicablePackage
+
+                      ? applicablePackage.yearlyDiscounts.find(({ year }) => year === plan).discountedPrice * 12
+                      : 'N/A';
+                    return (
+                      <tr key={index}>
+                        <td>{plan}</td>
+                        <td>{totalSessions}</td>
+                        <td>${yearlyDiscount}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </Form>
         )}
       </Formik>
@@ -226,3 +308,4 @@ const ChartComponent = () => {
 };
 
 export default ChartComponent;
+
