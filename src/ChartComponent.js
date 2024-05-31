@@ -1,7 +1,29 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import { Form } from 'react-bootstrap';
+import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js';
 import './App.css';
+
+// Register necessary Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const ChartComponent = () => {
   const [results, setResults] = useState({
@@ -139,6 +161,42 @@ const ChartComponent = () => {
       });
     }
   };
+
+  const prepareLineChartData = () => {
+    const labels = results.mappedYearData.map(({ plan }) => plan);
+    
+    const manHoursData = results.mappedYearData.map(({ plan, percentage }) => {
+      return (((results.TotalAgentsNeeded * parseFloat(percentage) / 100) / 960 * 20 * 7 * 12) *1000).toFixed(2);
+    });
+
+    const discountData = results.discountedPrices
+      .filter(({ plan }) => plan === 'enterprise' && results.packages[plan])
+      .map(({ yearlyDiscounts }) => {
+        return yearlyDiscounts.map(({ discountedPrice }) => (discountedPrice * 12).toFixed(2));
+      })[0] || [];
+
+      return {
+      manHours: {
+        labels,
+        datasets: [
+          {
+            label: 'Number Of ManHour Saved',
+            data: manHoursData,
+            fill: false,
+            borderColor: 'blue',
+          },
+          {
+            label: 'Discounts based on the package',
+            data: discountData,
+            fill: false,
+            borderColor: 'green',
+          },
+        ],
+      }
+    };
+  };
+
+  const chartData = prepareLineChartData();
 
   return (
     <>
@@ -300,6 +358,11 @@ const ChartComponent = () => {
                 </tbody>
               </table>
             </div>
+
+            <div>
+              <h3 style={{color:'red'}}>Chart:</h3>
+              <Line data={chartData.manHours} />
+            </div>
           </Form>
         )}
       </Formik>
@@ -308,4 +371,5 @@ const ChartComponent = () => {
 };
 
 export default ChartComponent;
+
 
