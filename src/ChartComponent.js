@@ -221,16 +221,15 @@ const ChartComponent = () => {
                 style={{ width: '300px' }}
               />
             </Form.Group>
-            {results.TotalAgentsNeeded !== null && (
               <div style={{ color: 'black' }}>
-                1. Total Agents Needed: {results.TotalAgentsNeeded.toFixed(2)}
+                1. Total Agents Needed: {results.TotalAgentsNeeded !== null ? results.TotalAgentsNeeded.toFixed(2) : ""}
               </div>
-            )}
-            {results.ApproximateAgentNeeded !== null && (
+           
               <div style={{ color: 'green' }}>
-                2. Approximate Agent Needed With Eserve AI: {results.ApproximateAgentNeeded.toFixed(2)}
-              </div>
-            )}
+              2. Approximate Agent Needed With Eserve AI: {
+                results.ApproximateAgentNeeded !== null ? results.ApproximateAgentNeeded.toFixed(2) : ""
+              }
+            </div>
             <div style={{ color: 'blue' }}>
               3. Applicable package:
               {Object.keys(results.packages).map((pkg) => (
