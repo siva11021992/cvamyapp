@@ -1,0 +1,116 @@
+/* .container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80vw;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    box-sizing: border-box;
+}
+
+.red {
+    background-color: red;
+    flex: 1 1 20%;
+    height: 50%;
+    align-self: stretch;
+}
+
+.green {
+    background-color: green;
+    flex: 1 1 80%;
+    height: 50%;
+}
+
+.blue {
+    background-color: blue;
+    flex: 1 1 50%;
+    height: 50%;
+}
+
+.orange {
+    background-color: orange;
+    flex: 1 1 30%;
+    height: 50%;
+} */
+
+/* .container {
+    display: flex;
+    height: 50vh;
+    flex-wrap:wrap;
+    flex-direction: column;
+
+    
+}
+
+
+.box1 {
+    background-color: red;
+    flex-basis: 200px;
+}
+
+.box2 {
+    background-color: green;
+    flex-basis: 500px;
+
+}
+.box3{
+    
+    background-color: rgb(17, 0, 128);
+
+
+
+}
+.box4{
+    background-color: rgb(0, 255, 183);
+} */
+
+.container {
+    display: flex;
+    flex-direction: column;
+  
+}
+
+.row1 {
+    display: flex;
+    width: 100%;
+    height:100px;
+}
+
+.row2 {
+    display: flex;
+    width: 100%;
+    height:100px;
+}
+
+.box1 {
+    background-color: red;
+    flex: 1;
+    min-width: 200px;
+}
+
+.box2 {
+    background-color: green;
+    flex: 2;
+    height:100px;
+}
+
+.box3 {
+    background-color: rgb(17, 0, 128);
+    flex: 1;
+    height:73px;
+}
+
+.box4 {
+    background-color: rgb(0, 255, 183);
+    flex: 1;
+    height:73px;
+
+}
+
+
+
+
+
