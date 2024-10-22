@@ -4,7 +4,7 @@ import React from 'react';
 // import FlexLayout from './FlexLayout';
 // import GridLayout from './GridLayout';
 // import YupApi from './YupApi';
-import CrudComponent from './CrudComponent';
+// import CrudComponent from './CrudComponent';
 // import Sidebar from './SideBar';
 // import MyForm from './MyForm';
 // import Breadcrumb from './BreadCrumb';
@@ -16,7 +16,7 @@ import CrudComponent from './CrudComponent';
 // import Navbar from './NewBar';
 // import LocalStore from './LocalStore';
 // import ApiTest from './ApiTest';
-// import ContextApi from './ContextApi';
+import ContextApi from './ContextApi';
 
 function App() {
   return (
@@ -26,14 +26,14 @@ function App() {
       <FlexLayout />
       <GridLayout/>
       <YupApi/> */}
-     <CrudComponent/>
+     {/* <CrudComponent/> */}
      {/* <Sidebar/>
      <MyForm/> */}
      {/* <CheckBox/> */}
      {/* <Navbar/> */}
      {/* <LocalStore/> */}
      {/* <ApiTest/> */}
-     {/* <ContextApi/> */}
+     <ContextApi/>
     </div>
 
   //   <Router>

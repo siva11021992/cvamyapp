@@ -99,7 +99,7 @@ function CrudComponent() {
           </li>
         ))}
       </ul>
-      <CheckBox  title="hello" age={5} {...{editItem}}/>
+      <CheckBox  title="hello" age={5} {...{items}}/>
     </div>
   );
 }

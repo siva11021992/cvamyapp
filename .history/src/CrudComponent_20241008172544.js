@@ -5,7 +5,7 @@ import CheckBox from './CheckBox';
 function CrudComponent() {
   const [items, setItems] = useState([]); // State to hold list of items
   const [newItem, setNewItem] = useState(''); // State to handle new item input
-  const [editItem, setEditItem] = useState(false); // State to hold the item being edited
+  const [editItem, setEditItem] = useState("cva"); // State to hold the item being edited
 
   // Fetch items (Read)
   useEffect(() => {

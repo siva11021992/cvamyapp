@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import CheckBox from './CheckBox';
 
 function CrudComponent() {
   const [items, setItems] = useState([]); // State to hold list of items
@@ -99,7 +98,6 @@ function CrudComponent() {
           </li>
         ))}
       </ul>
-      <CheckBox  title="hello" age={5} {...{editItem}}/>
     </div>
   );
 }

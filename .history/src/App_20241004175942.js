@@ -12,15 +12,11 @@ import CrudComponent from './CrudComponent';
 // import Home from './Home';
 // import Contact from './Contact';
 // import About from './About';
-// import CheckBox from './CheckBox';
-// import Navbar from './NewBar';
-// import LocalStore from './LocalStore';
-// import ApiTest from './ApiTest';
-// import ContextApi from './ContextApi';
 
 function App() {
   return (
     <div className="App">
+      <h1>Hello World</h1>
       {/* <ChartComponent width="600px" height="400px"/>
       <LayoutExe/>
       <FlexLayout />
@@ -29,11 +25,6 @@ function App() {
      <CrudComponent/>
      {/* <Sidebar/>
      <MyForm/> */}
-     {/* <CheckBox/> */}
-     {/* <Navbar/> */}
-     {/* <LocalStore/> */}
-     {/* <ApiTest/> */}
-     {/* <ContextApi/> */}
     </div>
 
   //   <Router>
