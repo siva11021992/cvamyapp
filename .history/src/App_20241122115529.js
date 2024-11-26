@@ -17,8 +17,7 @@ import React from 'react';
 // import LocalStore from './LocalStore';
 // import ApiTest from './ApiTest';
 // import ContextApi from './ContextApi';
-   import GunTrade from './GunTrade';
-
+import GunTrade from './GunTrade';
 function App() {
   return (
     <div className="App">

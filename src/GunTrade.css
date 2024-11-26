@@ -1,0 +1,6 @@
+/* Add this at the top of your CSS file */
+.leaflet-container {
+    height: 100px;
+    width: 100px;
+  }
+  

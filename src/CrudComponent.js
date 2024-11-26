@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
+
 import CheckBox from './CheckBox';
 
 function CrudComponent() {
@@ -100,6 +102,9 @@ function CrudComponent() {
         ))}
       </ul>
       <CheckBox  title="hello" age={5} {...{editItem}}/>
+<div>
+      <Button variant="primary">Click Me</Button>
+      </div>
     </div>
   );
 }
